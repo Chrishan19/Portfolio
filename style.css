@@ -653,11 +653,12 @@
     cursor: pointer;
     font-weight: 700;
   }
-  /* Hide navigation menu on mobile */
-@media (max-width: 900px) {
-  .menu {
-    display: none;
-  }
-}
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none !important;
+      }
+    }
+
 
 
