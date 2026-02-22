@@ -653,5 +653,41 @@
     cursor: pointer;
     font-weight: 700;
   }
+
+/* ===== MOBILE NAV FIX ===== */
+@media (max-width: 768px) {
+
+  .nav-inner{
+  width:min(1100px, 92vw);
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 10px 0;   /* reduced from 14px */
+  gap: 10px;
+}
+
+  .brand {
+    font-size: 14px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .menu {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .menu a {
+    font-size: 12px;
+    padding: 6px 10px;   /* smaller buttons */
+  }
+}
   
+
   
