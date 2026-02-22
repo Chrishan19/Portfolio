@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIY Gameboy | Project</title>
+  <link rel="icon" type="image/png" href="assets/profile.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-projects.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+
+  <!-- Prism (code colors) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+</head>
+
+<body>
+  <main class="container" style="padding-top: 28px;">
+    <a class="link" href="index.html#projects" style="display:inline-flex; margin-bottom:14px;">← Back to Projects</a>
+
+    <!-- HEADER CARD -->
+    <div class="card" style="padding:18px;">
+      <div class="proj-top">
+        <div class="tag">ELECTRONIC + EMBEDDED</div>
+        <div class="muted" style="font-weight:700; font-size:13px;">2022</div>
+      </div>
+
+      <h1 style="margin:10px 0 6px;">DIY Gameboy (Bouncing Ball Game)</h1>
+
+      <p class="lead" style="margin:0;">
+        A compact handheld game console built using <b>Arduino Pro Mini</b>, buttons for input, and a small display.
+        The device runs a simple <b>Bouncing Ball</b> game and demonstrates embedded programming,
+        UI control, and compact hardware integration.
+      </p>
+
+      <div class="pill-row" style="margin-top:14px;">
+        <span class="pill">Arduino Pro Mini</span>
+        <span class="pill">Display</span>
+        <span class="pill">Buttons</span>
+        <span class="pill">Portable</span>
+        <span class="pill">Game Logic</span>
+      </div>
+
+      <div class="links" style="margin-top:14px;">
+        <!-- Replace this with your real repo -->
+        <a class="link" href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener">Code (GitHub)</a>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section style="padding-top:18px;">
+      <div class="section-title">
+        <h2>Key Features</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li><b>Bouncing ball game</b> with simple physics/score logic.</li>
+          <li><b>Button controls</b> for navigation and gameplay (left/right/select etc.).</li>
+          <li><b>Portable</b> build on a compact perfboard/proto board.</li>
+          <li>Clean layout with headers/pins for easy maintenance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="section-title">
+        <h2>How It Works</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <p class="lead" style="margin:0;">
+          The Arduino Pro Mini reads button inputs and updates the game state (ball position, lane, score).
+          The display refreshes frame-by-frame to animate the bowling ball movement and results.
+        </p>
+
+        <div class="pill-row" style="margin-top:14px;">
+          <span class="pill">Buttons → Input</span>
+          <span class="pill">Arduino → Logic</span>
+          <span class="pill">Display → Output</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARDWARE -->
+    <section>
+      <div class="section-title">
+        <h2>Hardware & Electronics</h2>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Core Components</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li><b>Arduino Pro Mini</b> (main controller)</li>
+            <li>8x8 LED display</li>
+            <li>Push buttons (inputs)</li>
+            <li>Battery</li>
+            <li>Perfboard for mounting</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Notes</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li>Use pull-up resistors (internal or external) for stable button input.</li>
+            <li>Keep wiring short for reliability in handheld builds.</li>
+            <li>Future: add enclosure + speaker/buzzer for sound effects.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section>
+      <div class="section-title">
+        <h2>Photos & Video</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div class="grid photo-grid">
+          <!-- Put your images inside assets/ and rename like below -->
+          <div class="photo">
+            <img src="assets/Gameboy-1.jpeg" data-full="assets/Gameboy-1.jpeg" alt="DIY Gameboy overview">
+          </div>
+          <div class="photo">
+            <img src="assets/Gameboy-2.jpeg" data-full="assets/Gameboy-2.jpeg" alt="DIY Gameboy board closeup">
+          </div>
+          <div class="photo">
+            <img src="assets/Gameboy-3.jpeg" data-full="assets/Gameboy-3.jpeg" alt="DIY Gameboy gameplay screen">
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <video controls src="assets/Gameboy-4.mp4" style="width:40%; border-radius:14px; border:1px solid rgba(255,255,255,.12);"></video>
+        </div> 
+      </div>
+    </section>
+
+    <!-- CODE -->
+    <section>
+      <div class="section-title">
+        <h2>Code Snippets</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+
+        <div class="code-card">
+
+          <!-- SNIPPET 1 -->
+          <div class="code-snippet">
+            <div class="code-head">
+              <span>Game_boy.ino</span>
+            </div>
+
+            <pre class="code-scroll"><code class="language-cpp">
+#include <FrequencyTimer2.h>
+
+  int cells[8][8] = {
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+  };
+  
+  int SER_Pin = 12;//orange
+  int RCLK_Pin = 11;//red
+  int SRCLK_Pin = 10;//yellow
+  
+  #define number_of_74hc595s 2
+  #define numOfRegisterPins number_of_74hc595s * 8
+  
+  boolean registers[numOfRegisterPins];
+  
+  int p = 0;
+  int padx = 2;
+  
+  int bx = 0;
+  int by = 7;
+  
+  int b_pins[] = {2,3,4,5,6};
+  int LEFT = 0;
+  int UP = 1;
+  int RIGHT = 2;
+  int DOWN = 3;
+  int CENTER = 4;
+  
+  long movetimer;
+  
+  int scocount=0;
+  
+  char j;
+  String sccountfin;
+  String nam= "score";   //for score
+  
+  void setup() {
+    Serial.begin(9600);
+    pinMode (SER_Pin, OUTPUT);
+    pinMode (RCLK_Pin, OUTPUT);
+    pinMode (SRCLK_Pin, OUTPUT);
+  
+    initGame();  //reset all register pins
+  
+    clearRegisters();
+    writeRegisters();
+    FrequencyTimer2::disable();
+  
+    FrequencyTimer2::setPeriod(1000);
+  
+    FrequencyTimer2::setOnOverflow(display);
+  
+  }
+  
+  void initGame(){
+    by = 7;
+    bx = random(0,6);
+    scocount = 0;
+  }
+  boolean gamestate = true;
+  boolean game = true;
+  int pause = 40;
+  
+  
+  void loop() {
+    readButtons();
+  
+      if (millis() - movetimer > 150){
+        movetimer = millis();
+          if (game){//start
+              if (gamestate){//play or pause
+                moveBall();
+              }
+          }else{//game over
+            for (int i = 0;i < 50;i++){
+            
+              delay(20);
+            }
+            game = true;
+            delay(100);
+            initGame();
+          }
+      }
+  
+  }
+  
+  long lastpress = 0;
+  int lastbt = -1;
+  void readButtons() {
+    for (int i = 0;i < 5;i++){
+      int val = digitalRead(b_pins[i]);
+        if (val == 1) {
+          act(i);
+          lastbt = i;
+        }else if (lastbt == i){
+          lastbt = -1;
+          lastpress = 0;
+        }
+    }
+  }
+  
+  void act(int i){
+      if (lastpress == 0 || millis() - lastpress > 250) {
+        lastpress = millis();
+        if (i == LEFT && padx > 0){
+          padx--;
+        }
+  
+        if (i== RIGHT &&(padx +3) < 8){
+          padx++;
+        }
+        if (i == CENTER && lastbt == -1) {
+          gamestate = !gamestate;
+        }
+      }
+  
+  }
+  
+  
+  void clear(){
+    for (int x = 0; x < 8; x++){
+      for (int y = 0; y < 8; y++){
+        cells[x][y] = 0;
+      }
+    }
+  }
+  
+  int cx = 1; // LEFT OR RIGHT 1=Right
+  int cy = -1; // UP OR DOWN -1 = down
+  void moveBall(){
+    int nmove = random(-1,1);
+    if (by == 1 && cy == -1 && (bx >= padx && bx<=(padx + 3))){  //ball bounse
+      cy = 1;
+      bx += nmove;
+      scocount = scocount+1;
+      String sccountfin = nam + scocount;
+        Serial.println(sccountfin);
+      
+      }
+  
+    if (by == 0 && cy == -1){
+      game = false;
+      
+      }
+  
+    if (by == 7 && cy == 1){
+      cy = -1;
+      bx += nmove;
+      }
+  
+      if (bx == 7 && cx ==1 && by > 1){
+      cx = -1;
+      by += nmove;
+      }
+  
+      if (bx == 0 && cx == -1 && by > 1){
+      cx = 1;
+      by += nmove;
+      } 
+  
+      if(bx == 0 && by == 1 && cx == -1 && (bx >= padx && bx<=(padx + 3))){
+      cy = 1;
+      bx += 1;
+      }
+      if(bx == 7 && by == 1 && cx == 1 && (bx >= padx && bx<=(padx + 3))){
+      cy = 1;
+      bx += 1;
+      }
+      by += cy;
+      bx += cx;
+  
+      if (bx < 0){
+        bx = 0;
+        }
+      if (bx > 7){
+        bx = 7;
+        } 
+  
+      if (by <0){
+        by = 0;
+        }
+      if (by >7){
+        by = 7;
+        } 
+  
+      // Serial.print(bx);
+      // Serial.println(by);
+      // Serial.print("Score =");
+      
+      
+    }                
+            </code></pre>
+          </div>
+
+          <!-- SNIPPET 2 -->
+          <div class="code-snippet">
+            <div class="code-head">
+              <span>Display.ino</span>
+            </div>
+
+            <pre class="code-scroll"><code class="language-cpp">
+int py = 0;
+void display(){
+    if (game){
+      clear();
+      cells[padx][0] = 1;
+      cells[padx+1][0] = 1;
+      cells[padx+2][0] = 1;
+
+      cells[bx][by] = 1;
+    }
+
+  clearRegisters();
+  py++;
+  if (py == 8){
+    py = 0;
+  }
+  setRegisterPin(15 - py, LOW);
+
+  for (int px = 0; px < 8; px++){
+    if (cells[px][py] == 1){
+      setRegisterPin(px, HIGH);
+    }
+  }
+  writeRegisters();
+}
+
+void clearRegisters() {
+  for (int i = (numOfRegisterPins) / 2; i>= 0; i--){
+    registers[i] = LOW;
+  }
+  for (int i = numOfRegisterPins - 1 ; i>= (numOfRegisterPins) /2; i--){
+    registers[i] = HIGH;
+  }
+}
+
+void writeRegisters() {
+
+  digitalWrite(RCLK_Pin, LOW);
+
+  for (int i = numOfRegisterPins - 1; i >= 0; i--){
+    digitalWrite(SRCLK_Pin, LOW);
+
+    int val = registers[i];
+    
+    digitalWrite(SER_Pin, val);
+    digitalWrite(SRCLK_Pin, HIGH);
+
+  }
+digitalWrite(RCLK_Pin, HIGH);
+}
+
+void setRegisterPin(int index, int value){
+  registers[index] = value;
+}
+              
+            </code></pre>
+          </div>
+
+
+          <!-- SNIPPET 3 -->
+          <div class="code-snippet">
+            <div class="code-head">
+              <span>Score.ino</span>
+            </div>
+
+            <pre class="code-scroll"><code class="language-cpp">
+int i;
+void score0(){
+  clear();
+  for(i=2;i<=5;i++){
+    cells[i][1] = 1;
+    cells[i][3] = 1;
+    cells[i][4] = 1;
+    cells[i][6] = 1;
+    cells[2][2] = 1;
+    cells[2][5] = 1;
+    cells[5][2] = 1;
+    cells[5][5] = 1;
+    }
+  writeRegisters();
+  }
+
+void score1(){
+  clear();
+  for(i=1;i<=6;i++){
+    cells[4][i] = 1;
+    cells[3][i] = 1;
+    }
+  writeRegisters();
+  }
+
+void score2(){
+  clear();
+  for(i=2;i<=5;i++){
+    cells[i][1] = 1;
+    cells[i][3] = 1;
+    cells[i][4] = 1;
+    cells[i][6] = 1;
+    cells[2][2] = 1;
+    cells[5][5] = 1;
+    }
+  writeRegisters();
+  }              
+            </code></pre>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:30px;">
+      <div class="muted" style="text-align:center; padding: 16px 0;">
+        © <span id="year"></span> Chrishan Fernando
+      </div>
+    </footer>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" src="" alt="Full size preview">
+  </div>
+
+  <!-- Prism JS -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-cpp.min.js"></script>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.querySelector(".lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".photo img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.dataset.full || img.src;
+        lightbox.classList.add("active");
+      });
+    });
+
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+
+    // Copy buttons (works for EACH snippet separately)
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const snippet = btn.closest(".code-snippet");
+        const codeEl = snippet ? snippet.querySelector("code") : null;
+        if (!codeEl) return;
+
+        try {
+          await navigator.clipboard.writeText(codeEl.innerText);
+
+          // ✔ + green + label
+          btn.classList.add("success", "show-label");
+          btn.dataset.label = "Copied";
+
+          setTimeout(() => { btn.dataset.label = "Copy"; }, 900);
+
+          setTimeout(() => {
+            btn.classList.remove("show-label", "success");
+            btn.dataset.label = "";
+          }, 2000);
+
+        } catch (e) {
+          btn.classList.add("show-label");
+          btn.dataset.label = "Blocked";
+          setTimeout(() => {
+            btn.classList.remove("show-label");
+            btn.dataset.label = "";
+          }, 1400);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

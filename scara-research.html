@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCARA Robot Arm Development | Ongoing Research</title>
+
+  <link rel="icon" type="image/png" href="assets/profile.png">
+
+  <!-- Your site styles -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-projects.css">
+
+  <!-- Prism (optional: for code highlighting) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+</head>
+
+<body>
+  <main class="container" style="padding-top: 28px;">
+    <a class="link" href="index.html#projects" style="display:inline-flex; margin-bottom:14px;">← Back to Projects</a>
+
+    <!-- HEADER CARD -->
+    <div class="card" style="padding:18px;">
+      <div class="proj-top">
+        <div class="tag">RESEARCH • ROBOTICS</div>
+        <div class="muted" style="font-weight:700; font-size:13px;">2025 - Present</div>
+      </div>
+
+      <h1 style="margin:10px 0 6px;">SCARA Robot Arm Development (Existing Arm Upgrade)</h1>
+
+      <p class="lead" style="margin:0;">
+        Ongoing research focused on improving an existing <b>SCARA robot arm</b> by designing and integrating
+        <b>cycloidal gearboxes</b> for two joints and developing a robust control system using a
+        <b>Teensy 4.1</b> microcontroller. Current work includes gearbox design, fabrication, assembly,
+        and early-stage control architecture planning.
+      </p>
+
+      <div class="pill-row" style="margin-top:14px;">
+        <span class="pill">SCARA Robot</span>
+        <span class="pill">Cycloidal Gearbox</span>
+        <span class="pill">2 Joint Upgrade</span>
+        <span class="pill">Teensy 4.1</span>
+        <span class="pill">Motion Control</span>
+        <span class="pill">Fabrication</span>
+      </div>
+
+      <div class="links" style="margin-top:14px;">
+        <!-- Optional -->
+        <!-- <a class="link" href="assets/scara-report.pdf" target="_blank" rel="noopener">Research Notes (PDF)</a> -->
+        <!-- <a class="link" href="https://github.com/YOUR_USERNAME/scara-research" target="_blank" rel="noopener">Code (GitHub)</a> -->
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section style="padding-top:18px;">
+      <div class="section-title">
+        <h2>Research Overview</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li>Upgrade torque and precision of an existing SCARA arm using <b>cycloidal gear reduction</b>.</li>
+          <li>Develop two cycloidal gearboxes for <b>Joint 1</b> and <b>Joint 2</b>.</li>
+          <li>Use <b>Teensy 4.1</b> as the main controller for future real-time motor control.</li>
+          <li>Fabrication and assembly validation of gearbox design (fit, backlash, smooth motion).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CURRENT PROGRESS -->
+    <section>
+      <div class="section-title">
+        <h2>Current Progress</h2>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Mechanical</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li>Designed cycloidal gearbox for <b>2 joints</b>.</li>
+            <li>Fabricated and assembled <b>one gearbox</b>.</li>
+            <li>Testing alignment, bearing fit, and smooth rotation.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Electronics & Control</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li>Selected <b>Teensy 4.1</b> as the main microcontroller.</li>
+            <li>Planning motor driver + encoder feedback integration.</li>
+            <li>Preparing software structure for motion control and kinematics.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL DETAILS -->
+    <section>
+      <div class="section-title">
+        <h2>Technical Details</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <h3 style="margin:0 0 10px;">Cycloidal Gearbox (Joint 1 & Joint 2)</h3>
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li>Purpose: increase torque and reduce backlash for improved accuracy.</li>
+          <li>Designed for compact integration with SCARA joint structure.</li>
+          <li>Focus: durability, manufacturability, and assembly alignment.</li>
+        </ul>
+
+        <h3 style="margin:14px 0 10px;">Controller: Teensy 4.1</h3>
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li>High performance MCU suitable for fast control loops.</li>
+          <li>Planned: encoder feedback, trajectory generation, safety limits.</li>
+          <li>Future: communication (USB/Serial/CAN/etc. if needed).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section>
+      <div class="section-title">
+        <h2>Next Steps</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li>Complete fabrication and assembly of the second gearbox.</li>
+          <li>Measure backlash and efficiency (compare with design expectations).</li>
+          <li>Mount gearboxes to SCARA joints and test mechanical motion.</li>
+          <li>Integrate motor drivers + encoders and start closed-loop control tests.</li>
+          <li>Implement basic kinematics (forward/inverse) and motion profiles.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section>
+      <div class="section-title">
+        <h2>Photos</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div class="grid photo-grid">
+          <!-- Replace with your real images -->
+          <div class="photo">
+            <img src="assets/Elbow Full gearbox.PNG" data-full="assets/Elbow Full gearbox.PNG" alt="Cycloidal gearbox design or prototype">
+          </div>
+          <div class="photo">
+            <img src="assets/Elbow Full gearbox2.PNG" data-full="assets/Elbow Full gearbox2.PNG" alt="Fabricated gearbox components">
+          </div>
+          <div class="photo">
+            <img src="assets/SCARA1.PNG" data-full="assets/SCARA1.PNG" alt="Gearbox assembly on bench">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:30px;">
+      <div class="muted" style="text-align:center; padding: 16px 0;">
+        © <span id="year"></span> Chrishan Fernando
+      </div>
+    </footer>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" src="" alt="Full size preview">
+  </div>
+
+  <!-- Prism JS -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-cpp.min.js"></script>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.querySelector(".lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".photo img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.dataset.full || img.src;
+        lightbox.classList.add("active");
+      });
+    });
+
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line Following Robot | Project</title>
+  <link rel="icon" type="image/png" href="assets/profile.png">
+
+  <!-- Same styles as your main site -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-projects.css">
+
+  <!-- Prism (code colors) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+</head>
+
+<body>
+  <main class="container" style="padding-top: 28px;">
+    <a class="link" href="index.html#projects" style="display:inline-flex; margin-bottom:14px;">← Back to Projects</a>
+
+    <!-- HEADER CARD -->
+    <div class="card" style="padding:18px;">
+      <div class="proj-top">
+        <div class="tag">ROBOTICS</div>
+        <div class="muted" style="font-weight:700; font-size:13px;">2024</div>
+      </div>
+
+      <h1 style="margin:10px 0 6px;">Line Following Robot (4 IR Sensors)</h1>
+      <p class="lead" style="margin:0;">
+        A compact line following robot built using <b>Arduino</b>, a <b>motor driver</b>, and
+        <b>4 IR sensors</b>. The robot detects the line position and adjusts the wheel speeds to follow
+        smoothly on curves and straight paths.
+      </p>
+
+      <div class="pill-row" style="margin-top:14px;">
+        <span class="pill">Arduino</span>
+        <span class="pill">4× IR Sensors</span>
+        <span class="pill">Motor Driver</span>
+        <span class="pill">DC Motors</span>
+        <span class="pill">Control Logic</span>
+      </div>
+
+
+    </div>
+
+    <!-- FEATURES -->
+    <section style="padding-top:18px;">
+      <div class="section-title">
+        <h2>Key Features</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+          <li><b>4-sensor line detection</b> for better stability and curve handling.</li>
+          <li><b>Motor speed control</b> to correct left/right drift.</li>
+          <li><b>Tunable parameters</b> (base speed, correction strength).</li>
+          <li>Simple hardware + reliable results for competitions and demos.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="section-title">
+        <h2>How It Works</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <p class="lead" style="margin:0;">
+          The 4 IR sensors are arranged in a row at the front. Each sensor reads <b>black/white</b>
+          (line/background). Based on the pattern (e.g., center sensors on line, left sensors off line),
+          the controller applies correction by changing the left and right motor speeds.
+        </p>
+
+        <div class="pill-row" style="margin-top:14px;">
+          <span class="pill">IR Sensors → Line position</span>
+          <span class="pill">Arduino → Decide correction</span>
+          <span class="pill">Motors → Move & steer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HARDWARE -->
+    <section>
+      <div class="section-title">
+        <h2>Hardware & Electronics</h2>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Core Components</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li>Arduino UNO</li>
+            <li>4 × digital IR sensor modules</li>
+            <li>L298N Motor driver L298N</li>
+            <li>2 × DC geared motors + wheels</li>
+            <li>Battery pack + switch</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:18px;">
+          <h3 style="margin:0 0 10px;">Sensor Mapping (Example)</h3>
+          <ul style="margin:0; padding-left:18px; color: var(--muted); line-height:1.7;">
+            <li>S1 (Left) → D8</li>
+            <li>S2 (Mid-Left) → D9</li>
+            <li>S3 (Mid-Right) → D10</li>
+            <li>S4 (Right) → D11</li>
+            <li>Motor driver → PWM pins and En pins</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTROL LOGIC -->
+    <section>
+      <div class="section-title">
+        <h2>Control Logic</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <p class="lead" style="margin:0;">
+          A simple weighted error method works well with 4 sensors. Each sensor contributes a weight
+          (left negative, right positive). The sum becomes the <b>error</b>.
+        </p>
+      </div>
+    </section>
+
+    <!-- CODE -->
+    <section>
+      <div class="section-title">
+        <h2>Code Snippets</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div class="code-card">
+
+          <!-- Snippet 1 -->
+          <div class="code-snippet">
+            <div class="code-head">
+              <span>LineFollow.ino</span>
+            </div>
+
+            <pre class="code-scroll"><code class="language-cpp">
+int enL = 3;
+int MLa = 4;
+int MLb = 2;
+
+int enR = 5;
+int MRa = 7;
+int MRb = 6;
+
+int IR1 = 8;
+int IR2 = 9;
+int IR3 = 10;
+int IR4 = 11;
+
+
+
+void setup() {
+pinMode(MLa,OUTPUT);
+pinMode(MLb,OUTPUT);
+pinMode(MRa,OUTPUT);
+pinMode(MRb,OUTPUT);
+
+pinMode(IR1,INPUT);
+pinMode(IR2,INPUT);
+pinMode(IR3,INPUT);
+pinMode(IR4,INPUT);
+
+Serial.begin(9600);
+}
+
+int maxpower = 120;
+int power = 110;
+int powerlimit = 100;
+
+int fixturnpower=80;
+int turnpower;
+int turnmaxpower=140;
+
+int robotspeed = 0;
+int maxspeed = 70;
+int t1 = 20;
+
+int turntime = 0;
+int turnmaxtime=50;
+
+int mL;
+int mR;
+
+void loop() {
+int sR1 = digitalRead(IR1);
+int sR2 = digitalRead(IR2);
+int sL1 = digitalRead(IR3);
+int sL2 = digitalRead(IR4);
+/*
+Serial.print(sL1);
+Serial.print("--");
+Serial.print(sL2);
+Serial.print("--");
+Serial.print(sR2);
+Serial.print("--");
+Serial.println(sR1);
+delay(200); */
+
+    mL = 0;
+    mR = 0;
+
+if(sR2==1 && sL1==1){
+        Serial.println("stop");
+        mL = 0;
+        mR = 0;
+        turntime=0;
+        turnpower=fixturnpower;
+    }
+if(sR2==0 && sL1==0){
+    Serial.println("front");
+    mR = power;
+    mL = power;
+    robotspeed++;
+    power++;
+    delay(30);
+    turntime=0;
+    turnpower=fixturnpower;
+
+    if(power>=maxpower){
+        power=maxpower;
+        }
+    }
+if(sR2==1 && sL1==0){
+Serial.println("left");
+if(robotspeed > maxspeed){
+    stopbot();
+    }
+
+mR = turnpower;
+mL = -turnpower;
+robotspeed =0;
+power=powerlimit;
+turntime++;
+delay(t1);
+Hold();
+}
+if(sL1==1 && sR2==0){
+    Serial.println("Right");
+    if(robotspeed > maxspeed){
+    stopbot();
+    }
+    mR = -turnpower;
+    mL = turnpower;
+    robotspeed =0;
+    power=powerlimit;
+    turntime++;
+    delay(t1);
+    Hold();
+    }
+
+    if(sR1==1 && sL1==0 && sL2==0){
+    Serial.println("LeftE");
+    if(robotspeed > maxspeed){
+    stopbot();
+    }
+    mR = turnpower;
+    mL = -turnpower;
+    robotspeed =0;
+    power=powerlimit;
+    turntime++;
+    delay(t1);
+    Hold();
+    }
+
+    if(sL2==1 && sR1==0 && sR2==0){
+        Serial.println("RightE");
+        if(robotspeed > maxspeed){
+            stopbot();
+            }
+        mR = -turnpower;
+        mL = turnpower;
+        robotspeed =0;
+        power=powerlimit;
+        turntime++;
+        delay(t1);
+        Hold();
+        }
+
+    Serial.print(turnpower);
+    if(turntime>turnmaxtime){
+    turnpower=turnmaxpower;
+    /*  turnpower++;
+        if(turnpower>turnmaxpower){
+            turnpower=turnmaxpower;
+
+        } */
+    }
+
+
+Mdrive(mL,mR);
+
+}
+
+void Hold(){
+mL = 0;
+mR = 0;
+}
+
+void stopbot(){
+Mdrive(-maxpower,-maxpower);
+delay(20);
+Mdrive(0,0);
+delay(20);
+
+
+}
+
+void Mdrive(int m2,int m1){//Mdrive(255,255) forward
+if(m1>0){
+    digitalWrite(MLa,LOW);
+    digitalWrite(MLb,HIGH);
+    }else{
+    digitalWrite(MLa,HIGH);
+    digitalWrite(MLb,LOW);
+    m1=m1*-1;
+    }
+    analogWrite(enL,m1);
+
+    if(m2>0){
+    digitalWrite(MRa,HIGH);
+    digitalWrite(MRb,LOW);
+    }else{
+    digitalWrite(MRa,LOW);
+    digitalWrite(MRb,HIGH);
+    m2=m2*-1;
+    }
+    analogWrite(enR,m2);
+}
+
+            </code></pre>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section>
+      <div class="section-title">
+        <h2>Photos & Video</h2>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div class="grid photo-grid">
+          <div class="photo">
+            <img src="assets/Line-follow-1.jpeg" data-full="assets/Line-follow-1.jpe" alt="Line follower robot overview">
+          </div>
+          <div class="photo">
+            <img src="assets/Line-follow-2.jpeg" data-full="assets/Line-follow-2.jpeg" alt="IR sensor array closeup">
+          </div>
+          <div class="photo">
+            <img src="assets/Line-follow-3.jpeg" data-full="assets/Line-follow-3.jpeg" alt="Robot on track">
+          </div>
+        </div>
+
+        <!-- Optional video -->
+        <!--
+        <div style="margin-top:14px;">
+          <video controls src="assets/line-robot.mp4"
+            style="width:40%; border-radius:14px; border:1px solid rgba(255,255,255,.12);"></video>
+        </div>
+        -->
+      </div>
+    </section>
+
+    <footer style="margin-top:30px;">
+      <div class="muted" style="text-align:center; padding: 16px 0;">
+        © <span id="year"></span> Chrishan Fernando
+      </div>
+    </footer>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" src="" alt="Full size preview">
+  </div>
+
+  <!-- Prism JS -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-c.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-cpp.min.js"></script>
+
+  <script>
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.querySelector(".lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".photo img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.dataset.full || img.src;
+        lightbox.classList.add("active");
+      });
+    });
+
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+
+    // Copy buttons (per snippet)
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const snippet = btn.closest(".code-snippet");
+        const codeEl = snippet ? snippet.querySelector("code") : null;
+        if (!codeEl) return;
+
+        try {
+          await navigator.clipboard.writeText(codeEl.innerText);
+
+          btn.classList.add("success", "show-label");
+          btn.dataset.label = "Copied";
+
+          setTimeout(() => { btn.dataset.label = "Copy"; }, 900);
+
+          setTimeout(() => {
+            btn.classList.remove("show-label", "success");
+            btn.dataset.label = "";
+          }, 2000);
+
+        } catch (e) {
+          btn.classList.add("show-label");
+          btn.dataset.label = "Blocked";
+          setTimeout(() => {
+            btn.classList.remove("show-label");
+            btn.dataset.label = "";
+          }, 1400);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
