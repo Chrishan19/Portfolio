@@ -654,8 +654,9 @@
     font-weight: 700;
   }
   /* Hide navigation menu on mobile */
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .menu {
     display: none;
   }
 }
+
