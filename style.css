@@ -654,16 +654,26 @@
     font-weight: 700;
   }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .menu {
       display: none !important;
     }
-    .profile-photo img {
-      width: 100px;
-      height: 100px;
-      
+    .hero-content {
+      flex-direction: column;   /* stack image and text */
+      align-items: center;      /* center everything */
+      text-align: center;
+    }
+  
+    .profile-photo {
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+  
+    .hero-text {
+      text-align: center;
     }
   }
+
 
 
 
