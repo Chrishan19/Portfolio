@@ -654,11 +654,17 @@
     font-weight: 700;
   }
 
-    @media (max-width: 768px) {
-      .menu {
-        display: none !important;
-      }
+  @media (max-width: 768px) {
+    .menu {
+      display: none !important;
     }
+    .profile-photo img {
+      width: 100px;
+      height: 100px;
+      
+    }
+  }
+
 
 
 
